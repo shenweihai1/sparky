@@ -1,4 +1,4 @@
-Website
+Academic website
 =======
 
 My academic website, online at [whsen.org](http://wshen.org).
