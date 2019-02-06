@@ -1,1 +1,6 @@
-![x](https://raw.githubusercontent.com/shenweihai1/imageUrlService/master/ybmq.jpg)
+Website
+=======
+
+My academic website, online at [whsen.org/](http://wshen.org).
+
+Built with [Bootstrap](http://getbootstrap.com/) and [jQuery](https://jquery.com/) for styling.
