@@ -8,7 +8,7 @@
     }
 }
 .descriptive {
-    background-color: #f6f8fa;
+    background-color: #6c757d3d;
     border-radius: 3px;
     font-size: 85%;
     line-height: 1.45;
@@ -16,13 +16,13 @@
     padding: 16px;
 }
 .descriptive-border {
-    background-color: #f6f8fa;
+    background-color: #6c757d3d;
     border-radius: 3px;
     font-size: 85%;
     line-height: 1.45;
     overflow: auto;
     padding: 16px;
-    border-color: #6c757d;
+    border-color: #6c757d3d;
     border-width: thin;
     border-style: dotted;
 }
