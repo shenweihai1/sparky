@@ -15,6 +15,11 @@
     overflow: auto;
     padding: 16px;
 }
+.border-thin {
+    border-style: solid;
+    border-color: #6c757d3d;
+    border-width: thin;
+}
 .descriptive-border {
     background-color: #6c757d3d;
     border-radius: 3px;
