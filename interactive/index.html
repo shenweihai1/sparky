@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<meta charset="utf-8">
+		<title>D3: Academic interactive resume</title>
+		<script type="text/javascript" src="scripts/d3/d3.v4.js"></script>
+		<script type="text/javascript" src="scripts/jquery-3.4.1.min.js"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+		<link rel="stylesheet" href="scripts/bootstrap.min.css">
+
+		<style type="text/css">
+			svg {
+			  width:50%;
+			  height:100%;
+			  float: left;
+			}
+			.descriptive {
+			    background-color: #6c757d3d;
+			    border-radius: 3px;
+			    font-size: 85%;
+			    line-height: 1.45;
+			    overflow: auto;
+			    padding: 16px;
+			}
+			#left{
+			  position: relative;
+			}
+		</style>
+</head>
+<body style="padding: 32px;padding-top: 8px;">
+	<h1>Weihai Shen</h1>
+	<div style="font-size: 16px;">
+		I'm currently a second-year CS master student at Arizona State University, former senior <strong>data engineer</strong> and software engineer at top tech companies in China: <a href="https://www.linkedin.com/company/bytedance/" target="_blank" >ByteDance Inc</a>(2 years), <a href="https://www.linkedin.com/company/baidu-inc/" target="_blank">Baidu Inc</a>(1.5 years) and <a href="https://www.linkedin.com/company/58-com-inc/about/" target="_blank">58 & Ganji Inc</a>(0.5 yeas). I'm actively seeking <code>PhD opportunity starting from fall 2020</code>. My research interests are focused on <span class="text-shuffle2">data visualization and information retrieval</span>
+	</div>
+	<svg id="left" style="width:50%;"></svg>
+	<div id="txt" style="font-size:16px;width:50%;float:right;padding: 6px;border-style: dotted;border-width: 1px;" >Weihai Shen's interactive Resume</div>
+
+	<script type="text/javascript">
+
+	function drawDetail(d) {
+		console.log(d) ;
+		$("#txt").html(d.data[2]) ;
+	}	
+
+	let intro = `
+	  <div class="mt-3">
+	                  <h3>Contact</h3>
+	                  Arizona State University <br>
+	                  1151 S. Forest Ave. <br>
+	                  Tempe, AZ 85281 <br> <br>
+	                  E-mail: <code>wshen24@asu.edu</code>
+	               </div>
+`
+	let edu = `
+<div class="mt-3">
+                  <h3>Education</h3>
+                  <b>Arizona State University</b> <span style="float:right;">AZ, USA</span> <br>
+                  Master of Computer Science <span style="float:right;">July 2018∼May 2020 (expected)</span> <br>
+                  GPA: 3.72/4.0  <a href="http://pdf.wshen.org/cvs/trans_asu.pdf" target="_blank"><i class="fas fa-file-pdf"></i></a><br><br>
+
+                  <b>Nanjing University of Posts and Telecommunications</b> <span style="float:right;">Nanjing, China</span> <br>
+                  Bachelor of Geographic Information System <span style="float:right;">July 2010∼June 2014</span> <br>
+                   GPA: 89.3/100, Rank: 1/107 <a href="http://pdf.wshen.org/cvs/trans_njupt.pdf" target="_blank"><i class="fas fa-file-pdf"></i></a><br>
+               </div>
+`
+	let patents = `
+<div class="mt-3">
+                  <!-- search keyword: bytedance weihai -->
+                  <h3>Patents</h3> <!-- http://www.pss-system.gov.cn/ -->
+                  The big data real-time analysis platform <br>
+                  <b>Weihai Shen;</b> Junxiu Gao; Qi Tan;  <span style="float:right">CN108920516A</span>
+                  <div class="descriptive">
+                     With the advent of the big data era, one of the most crucial issues the internet companies have toface is how to obtain real-time behavior information of users, which has given birth to real-timebig data analysis.  The traditional architecture simply analyzes data based on offline data(likeHive or other warehouse platforms).  However, traditional offline analysis cannot guarantee thetimeliness of data.  In this industrial patent, we creatively propose an architecture to provideusers with real-time statistic information, even with huge data
+                  </div>
+                  [<i class="fas fa-file-pdf"></i>&nbsp;<a href="http://pdf.wshen.org/aca_projs/CN108920516A.PDF" target="_blank">certification</a>] [<i class="fas fa-file-powerpoint"></i>&nbsp;<a target="_blank" href="http://pdf.wshen.org/cvs/real-slides.pdf">slides</a>] &nbsp;<br> 
+               </div>
+`
+
+let vader = `
+<div class="mt-3">
+                  <!-- search keyword: bytedance weihai -->
+                  <h3>Patents</h3> <!-- http://www.pss-system.gov.cn/ -->
+                  The big data real-time analysis platform <br>
+                  <b>Weihai Shen;</b> Junxiu Gao; Qi Tan;  <span style="float:right">CN108920516A</span>
+                  <div class="descriptive">
+                     With the advent of the big data era, one of the most crucial issues the internet companies have toface is how to obtain real-time behavior information of users, which has given birth to real-timebig data analysis.  The traditional architecture simply analyzes data based on offline data(likeHive or other warehouse platforms).  However, traditional offline analysis cannot guarantee thetimeliness of data.  In this industrial patent, we creatively propose an architecture to provideusers with real-time statistic information, even with huge data
+                  </div>
+                  [<i class="fas fa-file-pdf"></i>&nbsp;<a href="http://pdf.wshen.org/aca_projs/CN108920516A.PDF" target="_blank">certification</a>] [<i class="fas fa-file-powerpoint"></i>&nbsp;<a target="_blank" href="http://pdf.wshen.org/cvs/real-slides.pdf">slides</a>] &nbsp;<br> 
+               </div>
+
+
+               <div class="mt-3">
+                  <h3>Research experience</h3>
+                  <b>Research in the scientific Visualization ToolKit </b> <span style="float:right;">Sep.2019 ∼ - </span>  <br> Supervised by Dr. Ross Maciejewski <span style="float:right">VADER Lab</span>
+                  <div>
+                     <ul>
+                        <li>Implemented a WebSocket filter in the Topology-Toolkit (<a target="_blank" href="https://topology-tool-kit.github.io/">https://topology-tool-kit.github.io/</a>) to enable real-time data transfer of large datasets between browser and server memory</li>
+                        <li>Provided an out-of-box JavaScript API to receive and send object data asynchronously</li>
+                        <li>Used histogram-based visualizations to guide users to select important isovalues based the implemented WebSocket filter</li>
+                        <li>Focused on <strong> Data Visualization and Data Analytics</strong> research area</li>
+                     </ul>
+                  </div> 
+
+                  <b>Watermarking on generative adversarial network</b>  <span style="float:right;">Feb. 2019 ∼ May 2019</span> <br>
+                  Supervised by Dr. Yezhou Yang 
+                  <div>
+                     <ul>
+                        <li>Implemented a sample code to visualize the insights from low dimensions</li>
+                        <li>Implemented the Fast Gradient Sign Attack to impose an adversarial attack on an MNIST classifier</li>
+                        <li>Attempted a new structure to hide a unique watermarking into generative adversarial networks for intellectual property protection</li>
+                        <li>Focused on <strong>Adversarial Attack</strong> research area</li>
+                     </ul>
+                  </div> 
+
+                  <b>Industrial decision-making platform</b> <span style="float:right;">Aug. 2018 ~ Dec. 2018 </span>  <br> Supervised by Dr. George Runger 
+                  <div>
+                     <ul>
+                        <li>Implemented this project from scratch to online using MVC software design pattern</li>
+                        <li>Implemented an out-of-box script to import data from CSV to AWS database instances</li>
+                        <li>Provided configuration center to make the program more scalable</li>
+                     </ul>
+                  </div> 
+               </div>
+`
+let aca = `
+<div class="mt-3">
+                  <!-- https://fontawesome.com/ -->
+                  <h3>Academic projects</h3>
+
+                  <b>Face Recognition for Privacy Protection </b>
+                  <div class="descriptive">
+                     A  typical  application  of  face  recognition  is  to  identify  and  label  all  of  the  human  faces  in  agiven image or video clip.  However, the rapid improvement and widespread deployment of thisemerging technology also raise a lot of privacy concerns.  In this project, we propose a stronglyprivacy-enhanced  face  recognition  system,  which  achieves  effective  privacy  protection,  whilestill preserves the important human emotion information 
+                  </div>
+                  <img name="resize" src="./cse_591_pp.png" style="width: 60%;" class="border-thin"><br>
+                   [<i class="fas fa-file-pdf"></i>&nbsp;<a href="http://pdf.wshen.org/aca_projs/CSE_591.pdf" target="_blank">report</a>] &nbsp;
+                  [<i class="fab fa-github"></i>&nbsp;<a href="https://github.com/shenweihai1/face_detection" target="_blank">github</a>]<br><br>
+
+                  <b>Image Classification on Fashion-MNIST dataset </b>
+                  <div class="descriptive">
+                     In this project, we implement a 3-layer fully-connected neural network(without any deep learn-ing libraries like TensorFlow, Keras etc) to classify the fashion-MNIST dataset using No Mo-mentum, Polyaks classical momentum, Nesterovs Accelerated Gradient, RmsProp and ADAMalgorithms
+                  </div>
+                  [<i class="fas fa-file-pdf"></i>&nbsp;<a href="http://pdf.wshen.org/aca_projs/sgd.pdf" target="_blank">report</a>] &nbsp;
+                  [<i class="fab fa-github"></i>&nbsp;<a href="https://github.com/shenweihai1/inLearning" target="_blank">github</a>]<br> <br>
+
+                  <b>Using BERT for Qualitative Reasoning </b>
+                  <div class="descriptive">
+                     In  this  project,  we  used  BERT,  Bi-directional  Encoder  Representations  from  Transformers,which is a newly proposed language representation model, to solve qualitative reasoning prob-lem.  BERT has been proved to be very powerful that obtains the state-of-the-art results onalmost all natural language processing tasks
+                  </div>
+                  <img name="resize" src="./cse_576_pp.png" style="width: 60%;" class="border-thin"><br>
+                  [<i class="fas fa-file-pdf"></i>&nbsp;<a href="http://pdf.wshen.org/aca_projs/CSE_576.pdf" target="_blank">report</a>] &nbsp;
+                  [<i class="fab fa-github"></i>&nbsp;<a href="https://github.com/shenweihai1/everything/tree/master/BERT_finetune" target="_blank">github</a>]<br>
+               </div>
+`
+
+let int = `
+ <div class="mt-3">
+                  <h3>Summer Internship</h3>
+                 <a href="https://www.linkedin.com/company/bytedance/">ByteDance Technology Co Ltd.</a> <span style="float:right;">Palo Alto, USA</span><br>
+                  Software Development Engineer <span style="float:right;">June 2017∼June 2018 </span><br>
+                  Email team <br>
+                  <ul>
+                     <li>Implemented the email label system to keep users' inbox neat, tidy and easy-to-manage</li>
+                     <li>Optimized MySQL slow queries for speed and performance</li>
+                     <li>Implemented and maintained a Go-based RPC service on a daily basis</li>
+                  </ul>
+               </div>
+`
+let pho = `
+<div class="col-3">
+               <img style="max-width: 320px;" src="./I2.jpg"/>
+               Full pdf version:<a href="http://pdf.wshen.org/cvs/cv.pdf"> Download </a>
+            </div>
+`
+
+let work = `
+ <div class="mt-3">
+                  <h3>Work experience</h3>
+                  <!-- Bytedance -->
+                  <a href="https://www.linkedin.com/company/bytedance/">ByteDance Technology Co Ltd.</a><span style="float:right;">Beijing, China</span> <br>
+                  Senior Data Enginer <span style="float:right;">June 2017∼June 2018</span> <br>
+                  Data team
+                  <ul>
+                     <li> Led the team to design and accomplish a real-time big data analysis platform that can provide users Daily Launch User and Daily New User information on a large data using no-sql, spark, hbase and python</li>
+                     <li>Designed and implemented a data warehouse to monitor the long-term retention rate of users</li>
+                     <li>Rewrote distributed real-time processing code and made use of Flink to replace Storm framework</li>
+                  </ul> 
+
+                  Software Development Engineer <span style="float:right;">June 2016∼June 2017</span><br>
+                  User growth team
+                  <ul>
+                     <li>Built an intelligent ads platform integrating multiple ads engine APIs to control thousands of keywords for user growth marketing</li>
+                     <li>Implemented different models and strategies to boost user growth</li>
+                  </ul> 
+                  
+                  <!-- baidu -->
+                  <a href="https://www.linkedin.com/company/baidu-inc/">Baidu Inc.</a><span style="float:right;">Beijing, China</span> <br>
+                  Software Development Engineer <span style="float:right;">April 2015∼June 2016</span> <br>
+                  Knowledge search team
+                  <ul>
+                     <li>Designed and constructed a big-data tool to analyze the performance of each updated version</li>
+                     <li>Participated in the application performance optimization project, especially in the aspect of data storage optimization via no-sql and distributed deployment</li>
+                     <li>Implemented and maintained a php-based API service on a daily basis</li>
+                  </ul> 
+
+
+                  <!-- 58 & ganji -->
+                  <a href="https://www.linkedin.com/company/58-com-inc/about/">58.com & Ganji Inc.</a><span style="float:right;">Beijing, China</span> <br>
+                  Software Development Engineer <span style="float:right;">July 2014∼April 2015</span> <br>
+                  Real estate team
+                  <ul>
+                     <li>Improved the website’s search engine ranking greatly by optimizing metadata,  publishing relevant contents and improving access speed</li>
+                     <li>Redesigned the indices and <shadow></shadow>rding of MySQL to accelerate database access speed</li>
+                     <li>Implemented and maintained iterative development on a daily basis</li>
+                  </ul> 
+
+               </div>
+            </div>
+`
+	let data = [
+		[40, "Research exp", vader],
+		[10, "Contact", intro],
+		[20, "Education", edu],
+		[4, "Photo", pho],
+		[10, "Patents", patents],
+		[30, "Work exp", work],
+		[16, "Academic Projects", aca],
+		[12, "Intern", int],
+	]
+
+	function draw(data){
+        dataset = {
+        	"children" : data 
+        }
+
+        var diameter = 600;
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+        var bubble = d3.pack(dataset)
+            .size([diameter, diameter])
+            .padding(1.5);
+
+        var svg = d3.select("#left")
+            .attr("width", diameter)
+            .attr("height", diameter + 40)
+            .attr("class", "bubble") ;
+
+        var nodes = d3.hierarchy(dataset)
+            .sum(function(d) { return parseInt(d[0]); });
+
+        var node = svg.selectAll(".node")
+            .data(bubble(nodes).descendants())
+            .enter()
+            .filter(function(d){
+                return  !d.children
+            })
+            .append("g")
+            .attr("class", "node")
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            })
+		    .on("click", function(d, i) {
+		    	drawDetail(d) ;
+		    }) ;
+
+        node.append("circle")
+            .attr("r", function(d) {
+                return d.r;
+            })
+            .style("fill", function(d,i) {
+                return color(i);
+            });
+
+        node.append("text")
+            .attr("dy", ".2em")
+            .style("text-anchor", "middle")
+            .text(function(d) {
+                return d.data[1];
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", function(d){
+                return d.r/5;
+            })
+            .attr("fill", "white");
+
+        
+        d3.select(self.frameElement)
+            .style("height", diameter + "px");
+	       
+	    };
+	</script>
+
+	<script>
+			draw(data) ;
+	</script>
+	<script type="text/javascript" src="scripts/text-shuffle.js"></script>
+</body>
+</html>
